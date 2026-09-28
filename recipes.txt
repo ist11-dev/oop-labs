@@ -1,0 +1,8 @@
+Pasta
+3
+Pasta
+0.3 60
+Cheese
+0.1 200
+Sauce
+0.2 80
