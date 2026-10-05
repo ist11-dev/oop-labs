@@ -1,32 +1,25 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <iostream>
-#include <cstring>
-#include "Recipe.h"
 #include <fstream>
+#include <string>
+#include "Recipe.h"
+
 using namespace std;
 
 Recipe::Recipe()
 {
-    name = new char[8];
-    strcpy(name, "Unknown");
-
+    name = "Unknown";
     ingredientCount = 0;
     ingredients = nullptr;
 }
 
 Recipe::~Recipe()
 {
-    delete[] name;
     delete[] ingredients;
 }
 
-void Recipe::setName(char* value)
+void Recipe::setName(string value)
 {
-    delete[] name;
-
-    name = new char[strlen(value) + 1];
-    strcpy(name, value);
+    name = value;
 }
 
 void Recipe::setIngredientCount(int value)
@@ -37,7 +30,7 @@ void Recipe::setIngredientCount(int value)
     ingredients = new Ingredient[ingredientCount];
 }
 
-char* Recipe::getName()
+string Recipe::getName()
 {
     return name;
 }
@@ -79,7 +72,7 @@ void Recipe::setIngredient(int index, Ingredient ingredient)
     ingredients[index] = ingredient;
 }
 
-void Recipe::saveToFile(char* fileName)
+void Recipe::saveToFile(string fileName)
 {
     ofstream file(fileName);
 
@@ -95,6 +88,7 @@ void Recipe::saveToFile(char* fileName)
     for (int i = 0; i < ingredientCount; i++)
     {
         file << ingredients[i].getName() << endl;
+
         file << ingredients[i].getAmount() << " "
             << ingredients[i].getPrice() << endl;
     }
@@ -104,7 +98,7 @@ void Recipe::saveToFile(char* fileName)
     cout << "Recipe saved to file." << endl;
 }
 
-void Recipe::findInFile(char* fileName, char* searchName)
+void Recipe::findInFile(string fileName, string searchName)
 {
     ifstream file(fileName);
 
@@ -114,25 +108,26 @@ void Recipe::findInFile(char* fileName, char* searchName)
         return;
     }
 
-    char recipeName[100];
+    string recipeName;
     int count;
 
-    while (file.getline(recipeName, 100))
+    while (getline(file, recipeName))
     {
         file >> count;
         file.ignore();
 
-        if (strcmp(recipeName, searchName) == 0)
+        if (recipeName == searchName)
         {
             cout << "Recipe found: " << recipeName << endl;
 
             for (int i = 0; i < count; i++)
             {
-                char ingredientName[100];
+                string ingredientName;
                 double amount;
                 double price;
 
-                file.getline(ingredientName, 100);
+                getline(file, ingredientName);
+
                 file >> amount >> price;
                 file.ignore();
 
@@ -145,12 +140,6 @@ void Recipe::findInFile(char* fileName, char* searchName)
             return;
         }
 
-        // Пропускаємо інгредієнти цього рецепту
-        for (int i = 0; i < count; i++)
-        {
-            file.ignore(100, '\n');
-            file.ignore(100, '\n');
-        }
     }
 
     cout << "Recipe not found." << endl;

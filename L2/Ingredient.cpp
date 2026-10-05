@@ -1,15 +1,12 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <iostream>
-#include <cstring>
+#include <string>
 #include "Ingredient.h"
 
 using namespace std;
 
 Ingredient::Ingredient()
 {
-    name = new char[8];
-    strcpy(name, "Unknown");
+    name = "Unknown";
 
     amount = 0;
     price = 0;
@@ -17,23 +14,20 @@ Ingredient::Ingredient()
 
 Ingredient::Ingredient(const Ingredient& other)
 {
-    name = new char[strlen(other.name) + 1];
-    strcpy(name, other.name);
-
+    name = other.name;
     amount = other.amount;
     price = other.price;
 }
 
 Ingredient::~Ingredient()
 {
-    delete[] name;
 }
 
 Ingredient& Ingredient::operator=(const Ingredient& other)
 {
     if (this != &other)
     {
-        setName(other.name);
+        name = other.name;
         amount = other.amount;
         price = other.price;
     }
@@ -41,12 +35,9 @@ Ingredient& Ingredient::operator=(const Ingredient& other)
     return *this;
 }
 
-void Ingredient::setName(char* value)
+void Ingredient::setName(string value)
 {
-    delete[] name;
-
-    name = new char[strlen(value) + 1];
-    strcpy(name, value);
+    name = value;
 }
 
 void Ingredient::setAmount(double value)
@@ -59,7 +50,7 @@ void Ingredient::setPrice(double value)
     price = value;
 }
 
-char* Ingredient::getName()
+string Ingredient::getName()
 {
     return name;
 }

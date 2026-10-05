@@ -1,9 +1,12 @@
 #pragma once
 
+#include <string>
+using namespace std;
+
 class Ingredient
 {
 private:
-    char* name;
+    string name;
     double amount;
     double price;
 
@@ -14,13 +17,15 @@ public:
 
     Ingredient& operator=(const Ingredient& other);
 
-    void setName(char* value);
+    void setName(string value);
     void setAmount(double value);
     void setPrice(double value);
 
-    char* getName();
+    string getName();
     double getAmount();
     double getPrice();
 
     void show();
 };
+
+

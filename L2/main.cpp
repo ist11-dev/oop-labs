@@ -36,10 +36,10 @@ int main()
 
     recipe.show();
 
-    cout << endl;
-
     char fileName[] = "recipes.txt";
     recipe.saveToFile(fileName);
+
+    cout << endl;
 
     char searchName[] = "Pasta";
     recipe.findInFile(fileName, searchName);
