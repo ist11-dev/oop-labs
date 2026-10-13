@@ -67,6 +67,9 @@ public:
 
         return *this;
     }
+    bool operator==(const string& searchDate) const {
+        return date == searchDate;
+    }
 
     void findByDate(const string& searchDate) const {
         if (date == searchDate) {
@@ -120,7 +123,7 @@ int main() {
 
     ElectricityAccount* accounts = nullptr;
 
-    try {
+   
         int n;
 
         cout << "Введiть кiлькiсть записiв (1-10): ";
@@ -199,7 +202,7 @@ int main() {
             cout << "\nРезультат пошуку:\n";
 
             for (int i = 0; i < n; i++) {
-                if (accounts[i].getDate() == searchDate) {
+                if (accounts[i] == searchDate) {
                     cout << accounts[i] << '\n';
                     found = true;
                 }
@@ -215,13 +218,8 @@ int main() {
             cout << "Невiдома дiя.\n";
             break;
         }
-    }
-    catch (const char* message) {
-        cout << "\nПомилка: " << message << '\n';
-    }
-    catch (...) {
-        cout << "\nВиникла невiдома помилка.\n";
-    }
+    
+
 
     delete[] accounts;
     accounts = nullptr;
